@@ -1,2 +1,1 @@
-# dart_lang
-dart
+A simple command-line application.
