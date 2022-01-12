@@ -1,6 +1,8 @@
 
+import 'dart:math';
+
 void main(List<String> arguments) {
-  var zone=2;//用于测试的目标时区
+  var zone=0;//用于测试的目标时区
   var today=todayTimeRangeSecond(zone);
   print('最终转换===${toZoneDateTime2(today.first,zone)}-----${toZoneDateTime2(today.second,zone)}');
 
@@ -40,7 +42,7 @@ Pair todayTimeRangeSecond([int? zone]) {
 ///用于判断是否跨天
 int toZoneDateTime(int time, int zone) {
   var local = DateTime.fromMillisecondsSinceEpoch(time);
-  var timeOffset = zone - DateTime(time).timeZoneOffset.inHours;
+  var timeOffset = zone - DateTime.fromMillisecondsSinceEpoch(time).timeZoneOffset.inHours;
   var zoneDate = DateTime(local.year, local.month, local.day, local.hour + timeOffset, local.minute, local.second);
   return zoneDate.millisecondsSinceEpoch;
 }
@@ -49,7 +51,7 @@ int toZoneDateTime(int time, int zone) {
 ///转第2次：计算UTC zone的时间为time时的时间戳   -zone
 int toZoneDateTime2(int time, int zone) {
   var local = DateTime.fromMillisecondsSinceEpoch(time);
-  var timeOffset = DateTime(time).timeZoneOffset.inHours - zone;
+  var timeOffset = DateTime.fromMillisecondsSinceEpoch(time).timeZoneOffset.inHours - zone;
   var zoneDate = DateTime(local.year, local.month, local.day, local.hour + timeOffset, local.minute, local.second);
   return zoneDate.millisecondsSinceEpoch ;
 }
